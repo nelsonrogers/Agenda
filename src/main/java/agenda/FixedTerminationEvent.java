@@ -57,11 +57,6 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      *
      * @return the termination date of this repetitive event
      */
-    public LocalDate getTermination() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");    
-    }
-
     public LocalDate getTerminationDate() {
         // TODO : implémenter cette méthode
         throw new UnsupportedOperationException("Pas encore implémenté");   

@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * Description : A repetitive Event
  */
-public abstract class RepetitiveEvent extends Event {
+public class RepetitiveEvent extends Event {
     /**
      * Constructs a repetitive event
      *

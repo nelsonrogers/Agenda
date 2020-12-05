@@ -36,7 +36,7 @@ public class AgendaTest {
     
     // A daily repetitive event, never ending
     // November 1st, 2020, 22:30, 120 minutes
-    RepetitiveEvent neverEnding = new NoTerminationEvent("Never Ending", nov_1__2020_22_30, min_120, ChronoUnit.DAYS);
+    RepetitiveEvent neverEnding = new RepetitiveEvent("Never Ending", nov_1__2020_22_30, min_120, ChronoUnit.DAYS);
 
     @BeforeEach
     public void setUp() {
