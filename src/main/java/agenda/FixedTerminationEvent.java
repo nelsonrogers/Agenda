@@ -70,7 +70,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
 
     public long getNumberOfOccurrences() {
         // TODO : implémenter cette méthode
-        if (numberOfOccurrences != null)
+        if (numberOfOccurrences != 0)
             return numberOfOccurrences;
         //Calculer le nombre d'occurences à partir de la date de fin en utilisant frequency
         
