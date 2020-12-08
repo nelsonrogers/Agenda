@@ -36,7 +36,6 @@ public class FixedTerminationEvent extends RepetitiveEvent {
             
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, LocalDate terminationInclusive) {
         super(title, start, duration, frequency);
-        // TODO : implémenter cette méthode
         this.terminationInclusive = terminationInclusive;
     }
 
@@ -56,7 +55,8 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      */
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, long numberOfOccurrences) {
         super(title, start, duration, frequency);
-        // TODO : implémenter cette méthode
+        if (numberOfOccurrences < 0) 
+            throw new IllegalArgumentException("numberOfOccurrences ne peut pas être négatif");
         this.numberOfOccurrences = numberOfOccurrences;
     }
     /**
@@ -64,7 +64,6 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      * @return the termination date of this repetitive event
      */
     public LocalDate getTerminationDate() {
-        // TODO : implémenter cette méthode
         if (terminationInclusive != null)
             return terminationInclusive;
         //Calculate end date from numberOfOccurrences
@@ -74,22 +73,18 @@ public class FixedTerminationEvent extends RepetitiveEvent {
     }
 
     public long getNumberOfOccurrences() {
-        // TODO : implémenter cette méthode
-
-        if (numberOfOccurrences < 0) 
-            throw new IllegalArgumentException("numberOfOccurrences ne peut pas être négatif");
+ 
         if (numberOfOccurrences != 0) 
             return numberOfOccurrences;
         
         //Calculer le nombre d'occurences à partir de la date de fin en utilisant frequency
         LocalDate endDate = getTerminationDate();
         date = getStart().toLocalDate();
-        long compteur = 0;
         while (endDate.compareTo(date) > 0) {
             date = date.plus(1, frequency);
-            compteur++;
+            numberOfOccurrences++;
         }
-        return compteur;
+        return numberOfOccurrences;
     }
     
         
