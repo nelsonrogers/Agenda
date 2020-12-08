@@ -40,16 +40,14 @@ public class Event {
      * @param aDay the day to test
      * @return true if the event occurs on that day, false otherwise
      */
+    
     public boolean isInDay(LocalDate aDay) {
-        
-        // Initialisation du booléen 
         boolean isInDay = false;
         // On récupère la date de fin
-        LocalDateTime myEnd = myStart.plusDays(myDuration.abs().get(ChronoUnit.DAYS));
+        LocalDateTime myEnd = myStart.plus(myDuration);
         // If the given day is between start and end of event, event occurs on that day
         if (aDay.compareTo(myStart.toLocalDate()) >= 0 && aDay.compareTo(myEnd.toLocalDate()) <= 0)
-            isInDay = true;
-        
+            isInDay = true; 
         return isInDay;
     }
    
