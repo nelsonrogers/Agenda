@@ -28,6 +28,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      */
     
     LocalDate terminationInclusive;
+    LocalDateTime lastStart;
     
     long numberOfOccurrences;
     
@@ -67,9 +68,9 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         if (terminationInclusive != null)
             return terminationInclusive;
         //Calculate end date from numberOfOccurrences
-        LocalDateTime lastStart = getStart().plus(numberOfOccurrences, frequency);
-        LocalDateTime endDate = lastStart.plus(getDuration());
-        return endDate.toLocalDate();
+        lastStart = getStart().plus(numberOfOccurrences, frequency);
+        
+        return lastStart.toLocalDate();
     }
 
     public long getNumberOfOccurrences() {
@@ -83,7 +84,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         //Calculer le nombre d'occurences à partir de la date de fin en utilisant frequency
         LocalDate endDate = getTerminationDate();
         date = getStart().toLocalDate();
-        long compteur = 1;
+        long compteur = 0;
         while (endDate.compareTo(date) > 0) {
             date = date.plus(1, frequency);
             compteur++;
