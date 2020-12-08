@@ -20,12 +20,12 @@ public class Main {
         LocalDate terminationInclusive = LocalDate.of(2020, 11, 3);
         Duration duration = Duration.ofDays(1);
         Event e = new Event("évènement",  start, duration);
-        FixedTerminationEvent ev = new FixedTerminationEvent("évènement",  start, duration, ChronoUnit.DAYS, terminationInclusive);
+        RepetitiveEvent ev = new RepetitiveEvent("évènement",  start, duration, ChronoUnit.DAYS);
         Agenda agenda = new Agenda();
         agenda.addEvent(e);
         System.out.println(e.isInDay(LocalDate.of(2020, 11, 14)));
-        System.out.println(ev.getNumberOfOccurrences());
+        //System.out.println(ev.getNumberOfOccurrences());
         //il faut faire une autre fonction isInDAy
-        System.out.println(ev.isInDay(LocalDate.of(2020, 11, 3)));
+        System.out.println(ev.isInDay(LocalDate.of(2020, 11, 2)));
     }
 }
