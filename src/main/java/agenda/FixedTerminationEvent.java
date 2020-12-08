@@ -66,6 +66,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         if (terminationInclusive != null)
             return terminationInclusive;
         //Calculer la date de fin à partir de numberOfOccurrences
+        
     }
 
     public long getNumberOfOccurrences() {
