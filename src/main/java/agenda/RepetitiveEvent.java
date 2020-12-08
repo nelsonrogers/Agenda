@@ -22,24 +22,23 @@ public class RepetitiveEvent extends Event {
      * </UL>
      */
     
-    ChronoUnit frequency;
-    
     List<LocalDate> exceptions = new LinkedList<>();
-    
+    String title;
+    LocalDateTime start;
+    Duration duration;
+    ChronoUnit frequency;
     
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
-        // TODO : implémenter cette méthode
         this.frequency = frequency;
     }
-
+    
     /**
      * Adds an exception to the occurrence of this repetitive event
      *
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
         exceptions.add(date);
     }
 
@@ -48,8 +47,27 @@ public class RepetitiveEvent extends Event {
      * @return the type of repetition
      */
     public ChronoUnit getFrequency() {
-        // TODO : implémenter cette méthode
         return frequency;  
     }
 
+    @Override
+    public boolean isInDay(LocalDate aDay) {
+        boolean isInDay = false;
+        LocalDateTime lastStart = start;
+        int i = 1;
+        
+        // On récupère la date de dernière occurence de l'événement avant
+        // la date entrée.
+        while (lastStart.toLocalDate().plus(i, frequency).compareTo(aDay) < 0) {
+            i = i+1;
+        }
+        
+        // On récupère la date de fin
+        LocalDateTime myEnd = lastStart.plus(duration);
+        
+        // If the given day is between start and end of event, event occurs on that day
+        if (aDay.compareTo(lastStart.toLocalDate()) >= 0 && aDay.compareTo(myEnd.toLocalDate()) <= 0)
+            isInDay = true; 
+        return isInDay;
+    }
 }
