@@ -31,7 +31,8 @@ public class FixedTerminationEvent extends RepetitiveEvent {
     
     long numberOfOccurrences;
     
-    
+    LocalDate date;
+            
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, LocalDate terminationInclusive) {
         super(title, start, duration, frequency);
         // TODO : implémenter cette méthode
@@ -65,16 +66,32 @@ public class FixedTerminationEvent extends RepetitiveEvent {
         // TODO : implémenter cette méthode
         if (terminationInclusive != null)
             return terminationInclusive;
-        //Calculer la date de fin à partir de numberOfOccurrences
-        
+        //Calculate end date from numberOfOccurrences
+        LocalDateTime lastStart = getStart().plus(numberOfOccurrences, frequency);
+        LocalDateTime endDate = lastStart.plus(getDuration());
+        return endDate.toLocalDate();
     }
 
     public long getNumberOfOccurrences() {
         // TODO : implémenter cette méthode
-        if (numberOfOccurrences != null)
+        if (numberOfOccurrences < 0) {
+            System.out.println("boo");
+            throw new IllegalArgumentException("numberOfOccurrences ne peut pas être négatif");
+        }
+        if (numberOfOccurrences != 0) {
+            System.out.println("here");
             return numberOfOccurrences;
+        }
         //Calculer le nombre d'occurences à partir de la date de fin en utilisant frequency
-        
+        LocalDate endDate = getTerminationDate();
+        date = getStart().toLocalDate();
+        long compteur = 1;
+        while (endDate.compareTo(date) > 0) {
+            date = date.plus(1, frequency);
+            compteur++;
+        }
+        return compteur;
     }
+    
         
 }

@@ -25,8 +25,8 @@ public class RepetitiveEvent extends Event {
     ChronoUnit frequency;
     
     List<LocalDate> exceptions = new LinkedList<>();
-    
-    
+
+       
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
         // TODO : implémenter cette méthode
