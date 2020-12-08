@@ -1,23 +1,24 @@
 package agenda;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class Event {
 
     /**
      * The myTitle of this event
      */
-    private String myTitle;
+    private final String myTitle;
     
     /**
      * The starting time of the event
      */
-    private LocalDateTime myStart;
+    private final LocalDateTime myStart;
 
     /**
      * The durarion of the event 
      */
-    private Duration myDuration;
+    private final Duration myDuration;
 
 
     /**
@@ -40,8 +41,16 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        
+        // Initialisation du booléen 
+        boolean isInDay = false;
+        // On récupère la date de fin
+        LocalDateTime myEnd = myStart.plusDays(myDuration.abs().get(ChronoUnit.DAYS));
+        // If the given day is between start and end of event, event occurs on that day
+        if (aDay.compareTo(myStart.toLocalDate()) >= 0 && aDay.compareTo(myEnd.toLocalDate()) <= 0)
+            isInDay = true;
+        
+        return isInDay;
     }
    
     /**
