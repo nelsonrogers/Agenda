@@ -74,14 +74,12 @@ public class FixedTerminationEvent extends RepetitiveEvent {
 
     public long getNumberOfOccurrences() {
         // TODO : implémenter cette méthode
-        if (numberOfOccurrences < 0) {
-            System.out.println("boo");
+
+        if (numberOfOccurrences < 0) 
             throw new IllegalArgumentException("numberOfOccurrences ne peut pas être négatif");
-        }
-        if (numberOfOccurrences != 0) {
-            System.out.println("here");
+        if (numberOfOccurrences != 0) 
             return numberOfOccurrences;
-        }
+        
         //Calculer le nombre d'occurences à partir de la date de fin en utilisant frequency
         LocalDate endDate = getTerminationDate();
         date = getStart().toLocalDate();
