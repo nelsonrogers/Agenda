@@ -55,6 +55,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
      */
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, long numberOfOccurrences) {
         super(title, start, duration, frequency);
+        // numberOfOccurrences doit être positif
         if (numberOfOccurrences < 0) 
             throw new IllegalArgumentException("numberOfOccurrences ne peut pas être négatif");
         this.numberOfOccurrences = numberOfOccurrences;

@@ -64,7 +64,7 @@ public class Event {
     public LocalDateTime getStart() {
         return myStart;
     }
-
+    
 
     /**
      * @return the myDuration

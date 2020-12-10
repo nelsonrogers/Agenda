@@ -44,6 +44,7 @@ public class Agenda {
     public List<Event> findByTitle(String title) {
         List<Event> eventsWithSameTitle = new LinkedList<>();
         for (Event event : agenda) {
+            // pour chaque evenement avec le titre donné, on l'ajoute à la liste
             if (event.getTitle().equals(title))
                 eventsWithSameTitle.add(event);
         }
@@ -62,10 +63,12 @@ public class Agenda {
         LocalDateTime start = e.getStart();
         LocalDateTime end = start.plus(e.getDuration());
         for (Event event : agenda) {
+            // si l'evenement e commence pendant un autre evenement isFree = false
             if (event.getStart().compareTo(start) >= 0 && event.getStart().compareTo(end) <= 0) {
                 isFree = false;
                 break;
             }
+            // si l'evenement e se termine pendant un autre evenement isFree = false
             if (event.getStart().plus(event.getDuration()).compareTo(start) >= 0 && event.getStart().plus(event.getDuration()).compareTo(end) <= 0) {
                 isFree = false;
                 break;

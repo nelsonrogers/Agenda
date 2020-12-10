@@ -21,12 +21,33 @@ public class AgendaTest {
     // November 1st, 2020, 22:30
     LocalDateTime nov_1__2020_22_30 = LocalDateTime.of(2020, 11, 1, 22, 30);
     
+    // November 1st, 2020, 22:30
+    LocalDateTime nov_1__2020_22_31 = LocalDateTime.of(2020, 11, 1, 22, 31);
+    
+    // November 1st, 2020, 20:29
+    LocalDateTime nov_1__2020_20_29 = LocalDateTime.of(2020, 11, 1, 20, 29);
+    
+    // November 1st, 2020, 21:30
+    LocalDateTime nov_1__2020_21_30 = LocalDateTime.of(2020, 11, 1, 21, 30);
+    
     // 120 minutes
     Duration min_120 = Duration.ofMinutes(120);
 
     // A simple event
     // November 1st, 2020, 22:30, 120 minutes
     Event simple = new Event("Simple event", nov_1__2020_22_30, min_120);
+    
+    // evènement se produisant en même temps que simple
+    Event sameAsSimple = new Event("Same as simple event", nov_1__2020_22_30, min_120);
+    
+    // evènement commençant pendant l'evenement simple
+    Event simple2 = new Event("Simple event 2", nov_1__2020_22_31, min_120);
+    
+    // evènement se terminant pendant l'evenement simple
+    Event simple3 = new Event("Simple event 3", nov_1__2020_21_30, min_120);
+    
+    // evènement ne créant pas de conflits de date avec les autres evenements
+    Event simple4 = new Event("Simple event 4", nov_1__2020_20_29, min_120);
 
     // A Weekly Repetitive event ending at a given date
     RepetitiveEvent fixedTermination = new FixedTerminationEvent("Fixed termination weekly", nov_1__2020_22_30, min_120, ChronoUnit.WEEKS, jan_5_2021);
@@ -38,16 +59,7 @@ public class AgendaTest {
     // November 1st, 2020, 22:30, 120 minutes
     RepetitiveEvent neverEnding = new RepetitiveEvent("Never Ending", nov_1__2020_22_30, min_120, ChronoUnit.DAYS);
     
-    Duration days_3 = Duration.ofDays(3);
     
-    LocalDateTime nov_1__2020_22_31 = LocalDateTime.of(2020, 11, 1, 22, 31);
-    
-    // evènement se produisant en même temps que simple
-    Event sameAsSimple = new Event("Same as simple event", nov_1__2020_22_30, min_120);
-    
-    // evènement se produisant en même temps que simple à 1 minute près
-    Event simple2 = new Event("Simple event 2", nov_1__2020_22_31, min_120);
-
     @BeforeEach
     public void setUp() {
         agenda = new Agenda();
@@ -67,6 +79,8 @@ public class AgendaTest {
     @Test
     public void testFindByTitle() {
         assertTrue(1 == agenda.findByTitle("Simple event").size());
+        agenda.addEvent(sameAsSimple);
+        assertTrue(1 == agenda.findByTitle("Same as simple event").size());
         agenda.addEvent(simple);
         assertTrue(2 == agenda.findByTitle("Simple event").size());
     }
@@ -74,8 +88,14 @@ public class AgendaTest {
     
     @Test
     public void testIsFreeFor() {
-        
+        // on vérifie que 2 evenements se passant exactement en même temps sont en conflit
         assertFalse(agenda.isFreeFor(sameAsSimple));
+        // on vérifie qu'un evenement commençant pendant un autre evenement créé un conflit
         assertFalse(agenda.isFreeFor(simple2));
+        // on vérifie qu'un evenement finissant pendant un autre evenement créé un conflit
+        assertFalse(agenda.isFreeFor(simple3));
+        
+        // on vérifie agenda est libre pour un evenement n'étant pas en conflit de date avec un autre
+        assertTrue(agenda.isFreeFor(simple4));
     }
 }
