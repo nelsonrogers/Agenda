@@ -61,7 +61,7 @@ public class Agenda {
         
         boolean isFree = true;
         LocalDateTime start = e.getStart();
-        LocalDateTime end = start.plus(e.getDuration());
+        LocalDateTime end = e.getEnd();
         for (Event event : agenda) {
             // si l'evenement e commence pendant un autre evenement isFree = false
             if (event.getStart().compareTo(start) >= 0 && event.getStart().compareTo(end) <= 0) {
@@ -69,7 +69,7 @@ public class Agenda {
                 break;
             }
             // si l'evenement e se termine pendant un autre evenement isFree = false
-            if (event.getStart().plus(event.getDuration()).compareTo(start) >= 0 && event.getStart().plus(event.getDuration()).compareTo(end) <= 0) {
+            if (event.getEnd().compareTo(start) >= 0 && event.getEnd().compareTo(end) <= 0) {
                 isFree = false;
                 break;
             }

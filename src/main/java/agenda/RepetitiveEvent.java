@@ -57,7 +57,7 @@ public class RepetitiveEvent extends Event {
         // On récupère la date de dernière occurence de l'événement avant
         // la date entrée.
         while (lastStart.toLocalDate().compareTo(aDay) < 0) {
-            lastStart = lastStart.plus(1, frequency);
+            lastStart = lastStart.plus(1, getFrequency());
         }
         // On récupère la date de fin
         LocalDateTime myEnd = lastStart.plus(getDuration());

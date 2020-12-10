@@ -15,6 +15,7 @@ import java.time.temporal.ChronoUnit;
  * @author nelsonrogers
  */
 public class Main {
+    // Pour faire des tests
     public static void main(String[] args) {
         LocalDateTime start = LocalDateTime.of(2020, 11, 1, 22, 30);
         LocalDate terminationInclusive = LocalDate.of(2020, 11, 3);

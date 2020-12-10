@@ -44,7 +44,7 @@ public class Event {
     public boolean isInDay(LocalDate aDay) {
         boolean isInDay = false;
         // On récupère la date de fin
-        LocalDateTime myEnd = myStart.plus(myDuration);
+        LocalDateTime myEnd = getEnd();
         // If the given day is between start and end of event, event occurs on that day
         if (aDay.compareTo(myStart.toLocalDate()) >= 0 && aDay.compareTo(myEnd.toLocalDate()) <= 0)
             isInDay = true; 
@@ -65,7 +65,10 @@ public class Event {
         return myStart;
     }
     
-
+    public LocalDateTime getEnd() {
+        return myStart.plus(this.getDuration());
+    }
+    
     /**
      * @return the myDuration
      */
