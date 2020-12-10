@@ -20,7 +20,7 @@ public class AgendaTest {
 
     // November 1st, 2020, 22:30
     LocalDateTime nov_1__2020_22_30 = LocalDateTime.of(2020, 11, 1, 22, 30);
-
+    
     // 120 minutes
     Duration min_120 = Duration.ofMinutes(120);
 
@@ -37,6 +37,16 @@ public class AgendaTest {
     // A daily repetitive event, never ending
     // November 1st, 2020, 22:30, 120 minutes
     RepetitiveEvent neverEnding = new RepetitiveEvent("Never Ending", nov_1__2020_22_30, min_120, ChronoUnit.DAYS);
+    
+    Duration days_3 = Duration.ofDays(3);
+    
+    LocalDateTime nov_1__2020_22_31 = LocalDateTime.of(2020, 11, 1, 22, 31);
+    
+    // evènement se produisant en même temps que simple
+    Event sameAsSimple = new Event("Same as simple event", nov_1__2020_22_30, min_120);
+    
+    // evènement se produisant en même temps que simple à 1 minute près
+    Event simple2 = new Event("Simple event 2", nov_1__2020_22_31, min_120);
 
     @BeforeEach
     public void setUp() {
@@ -52,6 +62,20 @@ public class AgendaTest {
         assertEquals(4, agenda.eventsInDay(nov_1_2020).size(), "Il y a 4 événements ce jour là");
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
     }
+       
 
-
+    @Test
+    public void testFindByTitle() {
+        assertTrue(1 == agenda.findByTitle("Simple event").size());
+        agenda.addEvent(simple);
+        assertTrue(2 == agenda.findByTitle("Simple event").size());
+    }
+    
+    
+    @Test
+    public void testIsFreeFor() {
+        
+        assertFalse(agenda.isFreeFor(sameAsSimple));
+        assertFalse(agenda.isFreeFor(simple2));
+    }
 }
