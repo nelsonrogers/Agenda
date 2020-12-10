@@ -74,7 +74,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
     }
 
     public long getNumberOfOccurrences() {
- 
+        // si numberOfOccurences a été définit dans le constructeur, on le retourne directement
         if (numberOfOccurrences != 0) 
             return numberOfOccurrences;
         

@@ -66,5 +66,16 @@ public class FixedTerminationEventTest {
         assertTrue(fixedTermination.isInDay(nov_1_2020.plus(3, ChronoUnit.WEEKS)), "Cet événement se produit toutes les semaines");
         assertFalse(fixedTermination.isInDay(nov_1_2020.plus(4, ChronoUnit.WEEKS)), "Cet événement ne se produit pas à W+4");
     }
+    
+    @Test
+    public void cannotEnterNegativeNumberOfOccurences() {
+        try {
+            FixedTerminationEvent fte = new FixedTerminationEvent("Fixed termination weekly", nov_1__2020_22_30, min_120, ChronoUnit.WEEKS, -1);
+            fail ("numberOfOccurences doit être positif");
+        }
+        catch (Exception ex) {
+            System.out.println("oops");
+        }
+    }
 
 }
